@@ -1,3 +1,5 @@
+import { Error, makeError } from './Error';
+
 export interface Course {
   subject: string | null;
   number: string;
@@ -9,20 +11,21 @@ export const courseToString = (course: Course): string => {
   return (subject !== null ? subject : '') + number + (section !== null ? '-' + section : '');
 };
 
-export const parseCourses = (input: string): [Course[], string | null] => {
+export const parseCourses = (input: string): [Course[], Error[]] => {
   const result: Course[] = [];
   let subject: string | null = null;
   let current: Course | null = null;
   const split = input.match(/([A-Za-z]+|[0-9]+)/g);
   if (split !== null) {
     for (let i = 0; i < split.length; i++) {
+      const isLast = i === split.length - 1;
       const each = split[i];
       if (each.match(/[A-Za-z]+/) !== null) {
         if (subject !== null) {
-          return [result, 'Subject has no number: ' + subject];
+          return [result, [makeError(true, 'Subject has no number: ' + subject)]];
         }
         if (each.length !== 4) {
-          return [result, 'Incomplete subject: ' + each.toLowerCase()];
+          return [result, [makeError(!isLast, 'Incomplete subject: ' + each.toLowerCase())]];
         }
         subject = each.toUpperCase();
         current = null;
@@ -45,17 +48,17 @@ export const parseCourses = (input: string): [Course[], string | null] => {
         subject = null;
       } else if (each.length === 3) {
         if (current === null) {
-          return [result, 'Incomplete number: ' + each];
+          return [result, [makeError(!isLast, 'Incomplete number: ' + each)]];
         }
         current.section = each;
         current = null;
       } else {
-          return [result, 'Incomplete number: ' + each];
+          return [result, [makeError(!isLast, 'Incomplete number: ' + each)]];
       }
     }
     if (subject !== null) {
-      return [result, 'Subject has no number: ' + subject];
+      return [result, [makeError(false, 'Subject has no number: ' + subject)]];
     }
   }
-  return [result, null];
+  return [result, []];
 };

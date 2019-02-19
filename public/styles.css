@@ -10,9 +10,16 @@ div.inputField input {
   width: 100%;
 }
 
-div.inputField div.error {
-  color: red;
+div.inputField div.errors {
   margin-top: 0.25em;
+}
+
+div.inputField span.error {
+  color: red;
+}
+
+div.inputField span.warning {
+  color: #c0c000;
 }
 
 table#schedule {

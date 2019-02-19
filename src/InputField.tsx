@@ -1,11 +1,26 @@
 import React from 'react';
+import { Error } from './Error';
 
 interface InputFieldProps {
   label: string;
   value: string;
-  error: string | null;
+  errors: Error[];
   onChange: (value: string) => void;
 }
+
+const InputErrors = (props: { errors: Error[] }) => {
+  if (props.errors.length === 0) {
+    return null;
+  }
+  return (
+    <div className='errors'>
+      {props.errors.flatMap((error, index) => [
+        <span key={'error-' + index} className={error.severity}>{error.message}</span>,
+        <br key={'br-' + index} />
+      ]).slice(0, -1)}
+    </div>
+  );
+};
 
 const InputField = (props: InputFieldProps) => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -17,7 +32,7 @@ const InputField = (props: InputFieldProps) => {
         {props.label}<br />
         <input type='text' value={props.value} onChange={onChange} />
       </label>
-      {props.error !== null && <div className='error'>{props.error}</div>}
+      <InputErrors errors={props.errors} />
     </div>
   );
 };
