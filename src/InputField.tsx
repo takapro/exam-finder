@@ -3,6 +3,7 @@ import React from 'react';
 interface InputFieldProps {
   label: string;
   value: string;
+  error: string | null;
   onChange: (value: string) => void;
 }
 
@@ -16,6 +17,7 @@ const InputField = (props: InputFieldProps) => {
         {props.label}<br />
         <input type='text' value={props.value} onChange={onChange} />
       </label>
+      {props.error !== null && <div className='error'>{props.error}</div>}
     </div>
   );
 };

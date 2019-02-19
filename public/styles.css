@@ -10,6 +10,11 @@ div.inputField input {
   width: 100%;
 }
 
+div.inputField div.error {
+  color: red;
+  margin-top: 0.25em;
+}
+
 table#schedule {
   border: 1px solid gray;
   border-collapse: collapse;
