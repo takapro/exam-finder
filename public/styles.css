@@ -4,6 +4,12 @@
   margin: 1em;
 }
 
+div.inputField input {
+  box-sizing: border-box;
+  padding: 0.5em;
+  width: 100%;
+}
+
 table#schedule {
   border: 1px solid gray;
   border-collapse: collapse;
