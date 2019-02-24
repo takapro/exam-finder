@@ -18,42 +18,33 @@ export const parseCourses = (input: string): [Course[], Error[]] => {
   const split = input.match(/([A-Za-z]+|[0-9]+)/g);
   if (split !== null) {
     for (let i = 0; i < split.length; i++) {
-      const isLast = i === split.length - 1;
       const each = split[i];
       if (each.match(/[A-Za-z]+/) !== null) {
         if (subject !== null) {
           return [result, [makeError(true, 'Subject has no number: ' + subject)]];
         }
-        if (each.length !== 4) {
-          return [result, [makeError(!isLast, 'Incomplete subject: ' + each.toLowerCase())]];
+        if (each.length > 4) {
+          return [result, [makeError(true, 'Subject too long: ' + each.toLowerCase())]];
         }
         subject = each.toUpperCase();
         current = null;
-      } else if (each.length === 7) {
+      } else if (each.length <= 3) {
+        if (current === null) {
+          return [result, [makeError(i < split.length - 1, 'Incomplete number: ' + each)]];
+        }
+        current.section = ('00' + each).slice(-3);
+        current = null;
+      } else if (each.length <= 7) {
         const course = {
           subject: subject,
           number: each.substr(0, 4),
-          section: each.substr(4, 3)
+          section: each.length === 4 ? null : ('00' + each.substr(4)).slice(-3)
         };
         result.push(course);
-        current = null;
+        current = each.length === 4 ? course : null;
         subject = null;
-      } else if (each.length === 4) {
-        current = {
-          subject: subject,
-          number: each,
-          section: null
-        };
-        result.push(current);
-        subject = null;
-      } else if (each.length === 3) {
-        if (current === null) {
-          return [result, [makeError(!isLast, 'Incomplete number: ' + each)]];
-        }
-        current.section = each;
-        current = null;
       } else {
-          return [result, [makeError(!isLast, 'Incomplete number: ' + each)]];
+        return [result, [makeError(true, 'Number too long: ' + each)]];
       }
     }
     if (subject !== null) {
