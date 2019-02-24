@@ -33,3 +33,7 @@ table#schedule th, table#schedule td {
   padding: 0.5em;
   vertical-align: top;
 }
+
+table#schedule td del {
+  color: gray;
+}
