@@ -1,4 +1,5 @@
-import { Course } from './Course';
+import { Course, courseToString } from './Course';
+import { Error, makeError } from './Error';
 
 export interface Schedule {
   name: string;
@@ -36,14 +37,23 @@ export const makeCourseExams = (exams: Exam[]): CourseExam[] => {
   return result;
 };
 
-export const filterExams = (exams: Exam[], courses: Course[]): Exam[] => {
+export const filterExams = (exams: Exam[], courses: Course[]): [Exam[], Error[]] => {
   if (courses.length === 0) {
-    return [];
+    return [[], []];
   }
   const match = (exam: Exam, course: Course): boolean => {
     return exam.course.substr(4) === course.number &&
       (course.subject === null || exam.course.substr(0, course.subject.length) === course.subject) &&
       (course.section === null || exam.section === course.section);
   };
-  return exams.filter(exam => courses.some(course => match(exam, course)));
+  const errors: Error[] = [];
+  courses.forEach(course => {
+    let count = exams.filter(exam => match(exam, course)).length;
+    if (count === 0) {
+      errors.push(makeError(true, 'Course not found: ' + courseToString(course)));
+    } else if (count > 1) {
+      errors.push(makeError(false, 'Course is ambiguous: ' + courseToString(course)));
+    }
+  });
+  return [exams.filter(exam => courses.some(course => match(exam, course))), errors];
 };

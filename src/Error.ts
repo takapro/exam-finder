@@ -1,4 +1,4 @@
-type Severity = 'error' | 'warning';
+type Severity = 'error' | 'warning' | 'info';
 
 export interface Error {
   severity: Severity;
@@ -7,4 +7,8 @@ export interface Error {
 
 export const makeError = (isError: boolean, message: string): Error => {
   return { severity: isError ? 'error' : 'warning', message: message };
+};
+
+export const makeInfo = (message: string): Error => {
+  return { severity: 'info', message: message };
 };

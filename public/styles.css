@@ -11,7 +11,7 @@ div.inputField input {
 }
 
 div.inputField div.errors {
-  margin-top: 0.25em;
+  margin-top: 0.5em;
 }
 
 div.inputField span.error {
@@ -19,7 +19,11 @@ div.inputField span.error {
 }
 
 div.inputField span.warning {
-  color: #c0c000;
+  color: orange;
+}
+
+div.inputField span.info {
+  color: blue;
 }
 
 table#schedule {
