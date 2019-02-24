@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { courseToString, parseCourses } from './Course';
-import { Schedule } from './Schedule';
+import { parseCourses } from './Course';
+import { Schedule, filterExams } from './Schedule';
 import InputField from './InputField';
 import ScheduleTable from './ScheduleTable';
 
@@ -13,14 +13,13 @@ declare global {
 const App = () => {
   const [courseInput, setCourseInput] = useState('');
   const [courses, errors] = parseCourses(courseInput);
-  const coursesText = courses.map(courseToString).join(', ');
+  const exams = filterExams(window.schedule.exams, courses);
   return <>
     <h1>Exam Schedule Finder</h1>
     <h3>{window.schedule.name}</h3>
     <p>{window.schedule.asof}</p>
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
-    <p>courses = {coursesText}</p>
-    <ScheduleTable exams={window.schedule.exams} />
+    {exams.length > 0 && <ScheduleTable exams={exams} />}
   </>;
 };
 

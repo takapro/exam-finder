@@ -1,3 +1,5 @@
+import { Course } from './Course';
+
 export interface Schedule {
   name: string;
   asof: string;
@@ -32,4 +34,16 @@ export const makeCourseExams = (exams: Exam[]): CourseExam[] => {
     }
   });
   return result;
+};
+
+export const filterExams = (exams: Exam[], courses: Course[]): Exam[] => {
+  if (courses.length === 0) {
+    return [];
+  }
+  const match = (exam: Exam, course: Course): boolean => {
+    return exam.course.substr(4) === course.number &&
+      (course.subject === null || exam.course.substr(0, course.subject.length) === course.subject) &&
+      (course.section === null || exam.section === course.section);
+  };
+  return exams.filter(exam => courses.some(course => match(exam, course)));
 };
