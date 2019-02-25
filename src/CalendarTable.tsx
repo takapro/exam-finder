@@ -1,7 +1,8 @@
 import React from 'react';
 import formatDate from 'date-fns/format';
 import parseDate from 'date-fns/parse';
-import { Calendar, CalendarItem, createCalendar } from './Calendar';
+import differenceInMinutes from 'date-fns/differenceInMinutes';
+import { Calendar, CalendarItem, createCalendar, gappedCalendarItems } from './Calendar';
 import { Exam } from './Schedule';
 
 const startHour = 8;
@@ -19,13 +20,24 @@ const CalendarTableHead = () => {
   );
 };
 
+const calendarTableCell = (date: Date, items: CalendarItem<Exam>[]) => {
+  const start = parseDate('' + startHour, 'H', date);
+  const end = parseDate('' + endHour, 'H', date);
+  return gappedCalendarItems(items, start, end).map((item, index) =>
+    <td key={'cell-' + index} className={item.value ? 'cell' : 'gap'} colSpan={differenceInMinutes(item.end, item.start) / 30}>
+      {item.value && item.value.course + '-' + item.value.section}
+    </td>
+  );
+}
+
 const CalendarTableBody = (props: { calendar: Calendar<Exam>[] }) => {
   return (
     <tbody>
       {props.calendar.flatMap(each =>
         each.rows.map((row, index) =>
-          <tr key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index}>
-            {index === 0 && <td rowSpan={each.rows.length}>{formatDate(each.date, 'EEE, MMM dd')}</td>}
+          <tr key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index} className={index === 0 ? 'first' : 'not_first'}>
+            {index === 0 && <td className='date' rowSpan={each.rows.length}>{formatDate(each.date, 'EEE, MMM dd')}</td>}
+            {calendarTableCell(each.date, row.items)}
           </tr>
         )
       )}
@@ -41,6 +53,12 @@ const CalendarTable = (props: { exams: Exam[] }) => {
   }));
   return (
     <table id='calendar'>
+      <colgroup>
+        <col className='course' />
+        {hours.flatMap(hour => [0, 1].map(index =>
+          <col key={'cell-' + hour + '-' + index} className='cell' />
+        ))}
+      </colgroup>
       <CalendarTableHead />
       <CalendarTableBody calendar={createCalendar(items)} />
     </table>

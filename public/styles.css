@@ -26,6 +26,41 @@ div.inputField span.info {
   color: blue;
 }
 
+table#calendar {
+  border: 1px solid gray;
+  border-collapse: collapse;
+  margin: 1.5em 0px;
+}
+
+table#calendar col.cell {
+  width: 1.5em;
+}
+
+table#calendar tr.first {
+  border-top: 1px solid gray;
+}
+
+table#calendar tr.not_first {
+  border-top: 1px dashed gray;
+}
+
+table#calendar th, table#calendar td {
+  padding: 0.5em;
+  vertical-align: top;
+}
+
+table#calendar th, table#calendar td.date, table#calendar td.cell {
+  border: 1px solid gray;
+}
+
+table#calendar td.date {
+  white-space: nowrap;
+}
+
+table#calendar td.gap {
+  background-color: whitesmoke;
+}
+
 table#schedule {
   border: 1px solid gray;
   border-collapse: collapse;

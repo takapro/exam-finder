@@ -16,7 +16,7 @@ export interface CalendarRow<T> {
 export interface CalendarItem<T> {
   start: Date;
   end: Date;
-  value: T;
+  value?: T;
 }
 
 export const createCalendar = <T extends {}>(items: CalendarItem<T>[]): Calendar<T>[] => {
@@ -40,4 +40,20 @@ export const createCalendar = <T extends {}>(items: CalendarItem<T>[]): Calendar
     }
   });
   return calendar;
+};
+
+export const gappedCalendarItems = <T extends {}>(items: CalendarItem<T>[], start: Date, end: Date): CalendarItem<T>[] => {
+  const result: CalendarItem<T>[] = [];
+  let prevEnd = start;
+  items.forEach(item => {
+    if (item.start > prevEnd) {
+      result.push({ start: prevEnd, end: item.start });
+    }
+    result.push(item);
+    prevEnd = item.end;
+  });
+  if (end > prevEnd) {
+    result.push({ start: prevEnd, end: end });
+  }
+  return result;
 };
