@@ -20,4 +20,4 @@ export const mergeSort = <T extends {}>(array: T[], compare: (a: T, b: T) => num
     result.push(right.shift()!);
   }
   return result;
-}
+};
