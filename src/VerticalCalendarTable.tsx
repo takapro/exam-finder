@@ -12,9 +12,11 @@ const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }) => {
     <thead>
       <tr>
         <th></th>
-        {props.calendar.map(each => <td key={formatDate(each.date, 'yyyy-MM-dd')} colSpan={each.rows.length}>
-          {formatDate(each.date, 'EEE, MMM dd')}
-        </td>)}
+        {props.calendar.map(each =>
+          <td key={formatDate(each.date, 'yyyy-MM-dd')} className='date' colSpan={each.rows.length}>
+            {formatDate(each.date, 'EEE, MMM dd')}
+          </td>
+        )}
       </tr>
     </thead>
   );
@@ -25,10 +27,16 @@ const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }
     <tbody>
       {props.calendar.map(each =>
         <tr key={'hour-' + each.hour}>
-          {each.hour === Math.floor(each.hour) && <th rowSpan={2}>{each.hour}</th>}
-          {each.values.map((item, index) => <td key={'column-' + index} rowSpan={item.span}>
-            {item.value && item.value.course + '-' + item.value.section}
-          </td>)}
+          {each.hour === Math.floor(each.hour) && <th className='hour' rowSpan={2}>{each.hour}</th>}
+          {each.values.map((item, index) =>
+            <td key={'column-' + index} className={item.value ? 'cell' : 'gap'} rowSpan={item.span}>
+              {item.value && <>
+                <strong>{item.value.course + '-' + item.value.section}</strong><br />
+                {item.value.start_time + ' - ' + item.value.end_time}<br />
+                {item.value.building + ' ' + item.value.room}
+              </>}
+            </td>
+          )}
         </tr>
       )}
     </tbody>
@@ -44,7 +52,13 @@ const VerticalCalendarTable = (props: { exams: Exam[] }) => {
   const calendar = createCalendar(items);
   const verticalCalendar = createVerticalCalendar(calendar, startHour, endHour, 0.5);
   return (
-    <table id='calendar'>
+    <table id='verticalCalendar'>
+      <colgroup>
+        <col className='hour' />
+        {calendar.flatMap(each => each.rows.map((_, index) =>
+          <col key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index} className={index === 0 ? 'first' : 'not_first'}/>
+        ))}
+      </colgroup>
       <VerticalCalendarTableHead calendar={calendar} />
       <VerticalCalendarTableBody calendar={verticalCalendar} />
     </table>

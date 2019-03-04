@@ -84,3 +84,37 @@ table#horizontalCalendar td.date {
 table#horizontalCalendar td.gap {
   background-color: whitesmoke;
 }
+
+/* Vertical Calendar */
+
+table#verticalCalendar {
+  border: 1px solid gray;
+  border-collapse: collapse;
+  margin: 1.5em 0px;
+}
+
+table#verticalCalendar col.first {
+  border-left: 1px solid gray;
+}
+
+table#verticalCalendar col.not_first {
+  border-left: 1px dashed gray;
+}
+
+table#verticalCalendar tr {
+  height: 1em;
+}
+
+table#verticalCalendar th, table#verticalCalendar td {
+  padding: 0.5em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table#verticalCalendar th.hour, table#verticalCalendar td.date, table#verticalCalendar td.cell {
+  border: 1px solid gray;
+}
+
+table#verticalCalendar td.gap {
+  background-color: whitesmoke;
+}
