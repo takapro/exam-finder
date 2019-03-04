@@ -1,8 +1,12 @@
 @charset "utf-8";
 
+/* Common */
+
 #root {
   margin: 1em;
 }
+
+/* Input Field */
 
 div.inputField input {
   box-sizing: border-box;
@@ -26,40 +30,7 @@ div.inputField span.info {
   color: blue;
 }
 
-table#calendar {
-  border: 1px solid gray;
-  border-collapse: collapse;
-  margin: 1.5em 0px;
-}
-
-table#calendar col.cell {
-  width: 1.5em;
-}
-
-table#calendar tr.first {
-  border-top: 1px solid gray;
-}
-
-table#calendar tr.not_first {
-  border-top: 1px dashed gray;
-}
-
-table#calendar th, table#calendar td {
-  padding: 0.5em;
-  vertical-align: top;
-}
-
-table#calendar th, table#calendar td.date, table#calendar td.cell {
-  border: 1px solid gray;
-}
-
-table#calendar td.date {
-  white-space: nowrap;
-}
-
-table#calendar td.gap {
-  background-color: whitesmoke;
-}
+/* Schedule Table */
 
 table#schedule {
   border: 1px solid gray;
@@ -75,4 +46,41 @@ table#schedule th, table#schedule td {
 
 table#schedule td del {
   color: gray;
+}
+
+/* Horizontal Calendar */
+
+table#horizontalCalendar {
+  border: 1px solid gray;
+  border-collapse: collapse;
+  margin: 1.5em 0px;
+}
+
+table#horizontalCalendar col.cell {
+  width: 1.5em;
+}
+
+table#horizontalCalendar tr.first {
+  border-top: 1px solid gray;
+}
+
+table#horizontalCalendar tr.not_first {
+  border-top: 1px dashed gray;
+}
+
+table#horizontalCalendar th, table#horizontalCalendar td {
+  padding: 0.5em;
+  vertical-align: top;
+}
+
+table#horizontalCalendar th, table#horizontalCalendar td.date, table#horizontalCalendar td.cell {
+  border: 1px solid gray;
+}
+
+table#horizontalCalendar td.date {
+  white-space: nowrap;
+}
+
+table#horizontalCalendar td.gap {
+  background-color: whitesmoke;
 }

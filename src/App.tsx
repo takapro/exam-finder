@@ -3,8 +3,8 @@ import { parseCourses } from './Course';
 import { Schedule, filterExams } from './Schedule';
 import { makeInfo } from './Error';
 import InputField from './InputField';
-import CalendarTable from './CalendarTable';
 import ScheduleTable from './ScheduleTable';
+import HorizontalCalendarTable from './HorizontalCalendarTable';
 
 declare global {
   interface Window {
@@ -23,8 +23,8 @@ const App = () => {
     <h3>{window.schedule.name}</h3>
     <p>{window.schedule.asof}</p>
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
-    {exams.length > 0 && <CalendarTable exams={exams} />}
     {exams.length > 0 && <ScheduleTable exams={exams} />}
+    {exams.length > 0 && <HorizontalCalendarTable exams={exams} />}
   </>;
 };
 

@@ -1,6 +1,6 @@
 import parseISO from 'date-fns/parseISO';
 import parseDate from 'date-fns/parse';
-import { CalendarItem, createCalendar, gappedCalendarItems, createVerticalCalendar } from './Calendar';
+import { CalendarItem, createCalendar, horizontalCalendarItems, createVerticalCalendar } from './Calendar';
 
 const data: CalendarItem<string>[] = [
   { start: parseISO('2019-04-10T08:30'), end: parseISO('2019-04-10T11:30'), value: 'A' },
@@ -30,13 +30,13 @@ test('createCalendar', () => {
   expect(calendar[2].rows[0].items[0].value).toBe('D');
 });
 
-test('gappedCalendarItems', () => {
+test('horizontalCalendarItems', () => {
   const calendar = createCalendar(data);
   const start = parseDate('8', 'H', calendar[0].date);
   const end = parseDate('22', 'H', calendar[0].date);
   expect(start).toEqual(parseISO('2019-04-10T08:00'));
   expect(end).toEqual(parseISO('2019-04-10T22:00'));
-  const gappedCalendar = gappedCalendarItems(calendar[0].rows[0].items, start, end);
+  const gappedCalendar = horizontalCalendarItems(calendar[0].rows[0].items, start, end);
   expect(gappedCalendar.length).toBe(5);
   expect(gappedCalendar[0].start).toEqual(parseISO('2019-04-10T08:00'));
   expect(gappedCalendar[0].end).toEqual(parseISO('2019-04-10T08:30'));

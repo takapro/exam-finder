@@ -51,7 +51,7 @@ export const createCalendar = <T extends {}>(items: CalendarItem<T>[]): Calendar
   return calendar;
 };
 
-export const gappedCalendarItems = <T extends {}>(items: CalendarItem<T>[], start: Date, end: Date): CalendarItem<T>[] => {
+export const horizontalCalendarItems = <T extends {}>(items: CalendarItem<T>[], start: Date, end: Date): CalendarItem<T>[] => {
   const result: CalendarItem<T>[] = [];
   let prevEnd = start;
   items.forEach(item => {
