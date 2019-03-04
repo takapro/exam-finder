@@ -5,6 +5,7 @@ import { makeInfo } from './Error';
 import InputField from './InputField';
 import ScheduleTable from './ScheduleTable';
 import HorizontalCalendarTable from './HorizontalCalendarTable';
+import VerticalCalendarTable from './VerticalCalendarTable';
 
 declare global {
   interface Window {
@@ -25,6 +26,7 @@ const App = () => {
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
     {exams.length > 0 && <ScheduleTable exams={exams} />}
     {exams.length > 0 && <HorizontalCalendarTable exams={exams} />}
+    {exams.length > 0 && <VerticalCalendarTable exams={exams} />}
   </>;
 };
 
