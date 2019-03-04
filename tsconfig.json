@@ -6,9 +6,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "lib": [
-      "dom",
-      "esnext"
-    ]
+    "lib": ["dom", "esnext"],
+    "types": ["jest"]
   }
 }
