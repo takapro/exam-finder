@@ -1,12 +1,12 @@
 import parseISO from 'date-fns/parseISO';
 import parseDate from 'date-fns/parse';
-import { CalendarItem, createCalendar, gappedCalendarItems } from './Calendar';
+import { CalendarItem, createCalendar, gappedCalendarItems, createVerticalCalendar } from './Calendar';
 
 const data: CalendarItem<string>[] = [
   { start: parseISO('2019-04-10T08:30'), end: parseISO('2019-04-10T11:30'), value: 'A' },
-  { start: parseISO('2019-04-12T08:30'), end: parseISO('2019-04-10T11:30'), value: 'B' },
+  { start: parseISO('2019-04-12T08:30'), end: parseISO('2019-04-12T11:30'), value: 'B' },
   { start: parseISO('2019-04-10T15:30'), end: parseISO('2019-04-10T18:30'), value: 'C' },
-  { start: parseISO('2019-04-15T12:00'), end: parseISO('2019-04-10T15:00'), value: 'D' },
+  { start: parseISO('2019-04-15T12:00'), end: parseISO('2019-04-15T15:00'), value: 'D' },
   { start: parseISO('2019-04-10T08:30'), end: parseISO('2019-04-10T11:30'), value: 'E' },
 ];
 
@@ -53,4 +53,94 @@ test('gappedCalendarItems', () => {
   expect(gappedCalendar[4].start).toEqual(parseISO('2019-04-10T18:30'));
   expect(gappedCalendar[4].end).toEqual(parseISO('2019-04-10T22:00'));
   expect(gappedCalendar[4].value).toBe(undefined);
+});
+
+test('createVerticalCalendar', () => {
+  const calendar = createCalendar(data);
+  const verticalCalendar = createVerticalCalendar(calendar, 8, 22, 0.5);
+  expect(verticalCalendar.length).toBe(28);
+  expect(verticalCalendar[0].hour).toBe(8);
+  expect(verticalCalendar[0].values.length).toBe(4);
+  expect(verticalCalendar[0].values[0].span).toBe(1);
+  expect(verticalCalendar[0].values[0].value).toBe(undefined);
+  expect(verticalCalendar[0].values[1].span).toBe(1);
+  expect(verticalCalendar[0].values[1].value).toBe(undefined);
+  expect(verticalCalendar[0].values[2].span).toBe(1);
+  expect(verticalCalendar[0].values[2].value).toBe(undefined);
+  expect(verticalCalendar[0].values[3].span).toBe(8);
+  expect(verticalCalendar[0].values[3].value).toBe(undefined);
+  expect(verticalCalendar[1].hour).toBe(8.5);
+  expect(verticalCalendar[1].values.length).toBe(3);
+  expect(verticalCalendar[1].values[0].span).toBe(6);
+  expect(verticalCalendar[1].values[0].value).toBe('A');
+  expect(verticalCalendar[1].values[1].span).toBe(6);
+  expect(verticalCalendar[1].values[1].value).toBe('E');
+  expect(verticalCalendar[1].values[2].span).toBe(6);
+  expect(verticalCalendar[1].values[2].value).toBe('B');
+  expect(verticalCalendar[2].hour).toBe(9);
+  expect(verticalCalendar[2].values.length).toBe(0);
+  expect(verticalCalendar[3].hour).toBe(9.5);
+  expect(verticalCalendar[3].values.length).toBe(0);
+  expect(verticalCalendar[4].hour).toBe(10);
+  expect(verticalCalendar[4].values.length).toBe(0);
+  expect(verticalCalendar[5].hour).toBe(10.5);
+  expect(verticalCalendar[5].values.length).toBe(0);
+  expect(verticalCalendar[6].hour).toBe(11);
+  expect(verticalCalendar[6].values.length).toBe(0);
+  expect(verticalCalendar[7].hour).toBe(11.5);
+  expect(verticalCalendar[7].values.length).toBe(3);
+  expect(verticalCalendar[7].values[0].span).toBe(8);
+  expect(verticalCalendar[7].values[0].value).toBe(undefined);
+  expect(verticalCalendar[7].values[1].span).toBe(21);
+  expect(verticalCalendar[7].values[1].value).toBe(undefined);
+  expect(verticalCalendar[7].values[2].span).toBe(21);
+  expect(verticalCalendar[7].values[2].value).toBe(undefined);
+  expect(verticalCalendar[8].hour).toBe(12);
+  expect(verticalCalendar[8].values.length).toBe(1);
+  expect(verticalCalendar[8].values[0].span).toBe(6);
+  expect(verticalCalendar[8].values[0].value).toBe('D');
+  expect(verticalCalendar[9].hour).toBe(12.5);
+  expect(verticalCalendar[9].values.length).toBe(0);
+  expect(verticalCalendar[10].hour).toBe(13);
+  expect(verticalCalendar[10].values.length).toBe(0);
+  expect(verticalCalendar[11].hour).toBe(13.5);
+  expect(verticalCalendar[11].values.length).toBe(0);
+  expect(verticalCalendar[12].hour).toBe(14);
+  expect(verticalCalendar[12].values.length).toBe(0);
+  expect(verticalCalendar[13].hour).toBe(14.5);
+  expect(verticalCalendar[13].values.length).toBe(0);
+  expect(verticalCalendar[14].hour).toBe(15);
+  expect(verticalCalendar[14].values.length).toBe(1);
+  expect(verticalCalendar[14].values[0].span).toBe(14);
+  expect(verticalCalendar[14].values[0].value).toBe(undefined);
+  expect(verticalCalendar[15].hour).toBe(15.5);
+  expect(verticalCalendar[15].values.length).toBe(1);
+  expect(verticalCalendar[15].values[0].span).toBe(6);
+  expect(verticalCalendar[15].values[0].value).toBe('C');
+  expect(verticalCalendar[16].hour).toBe(16);
+  expect(verticalCalendar[16].values.length).toBe(0);
+  expect(verticalCalendar[17].hour).toBe(16.5);
+  expect(verticalCalendar[17].values.length).toBe(0);
+  expect(verticalCalendar[18].hour).toBe(17);
+  expect(verticalCalendar[18].values.length).toBe(0);
+  expect(verticalCalendar[19].hour).toBe(17.5);
+  expect(verticalCalendar[19].values.length).toBe(0);
+  expect(verticalCalendar[20].hour).toBe(18);
+  expect(verticalCalendar[20].values.length).toBe(0);
+  expect(verticalCalendar[21].hour).toBe(18.5);
+  expect(verticalCalendar[21].values.length).toBe(1);
+  expect(verticalCalendar[21].values[0].span).toBe(7);
+  expect(verticalCalendar[21].values[0].value).toBe(undefined);
+  expect(verticalCalendar[22].hour).toBe(19);
+  expect(verticalCalendar[22].values.length).toBe(0);
+  expect(verticalCalendar[23].hour).toBe(19.5);
+  expect(verticalCalendar[23].values.length).toBe(0);
+  expect(verticalCalendar[24].hour).toBe(20);
+  expect(verticalCalendar[24].values.length).toBe(0);
+  expect(verticalCalendar[25].hour).toBe(20.5);
+  expect(verticalCalendar[25].values.length).toBe(0);
+  expect(verticalCalendar[26].hour).toBe(21);
+  expect(verticalCalendar[26].values.length).toBe(0);
+  expect(verticalCalendar[27].hour).toBe(21.5);
+  expect(verticalCalendar[27].values.length).toBe(0);
 });
