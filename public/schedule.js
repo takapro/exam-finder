@@ -1,6 +1,6 @@
 var schedule = {
   "name": "Winter 2019 - FINAL Exam Schedule",
-  "asof": "as of Friday, February 15, 2019",
+  "asof": "as of Thursday, February 28, 2019",
   "exams": [
     {
       "course": "ACCT1110",
@@ -2461,8 +2461,10 @@ var schedule = {
       "date": "Thu, Apr 11, 2019",
       "start_time": "15:30",
       "end_time": "18:30",
-      "building": "NWN",
-      "room": "GYM"
+      "building": "DLA",
+      "del_building": "NWN",
+      "room": "A2050",
+      "del_room": "GYM"
     },
     {
       "course": "CMNS2200",
@@ -7043,20 +7045,26 @@ var schedule = {
       "section": "001",
       "instructor": "Picard",
       "date": "Fri, Apr 12, 2019",
-      "start_time": "15:30",
-      "end_time": "18:30",
+      "start_time": "08:30",
+      "del_start_time": "15:30",
+      "end_time": "11:30",
+      "del_end_time": "18:30",
       "building": "NWN",
-      "room": "N4308"
+      "room": "N4215",
+      "del_room": "N4308"
     },
     {
       "course": "PHIL1152",
       "section": "002",
       "instructor": "Picard",
       "date": "Fri, Apr 12, 2019",
-      "start_time": "15:30",
-      "end_time": "18:30",
+      "start_time": "08:30",
+      "del_start_time": "15:30",
+      "end_time": "11:30",
+      "del_end_time": "18:30",
       "building": "NWN",
-      "room": "N4308"
+      "room": "N4215",
+      "del_room": "N4308"
     },
     {
       "course": "PHIL1190",
