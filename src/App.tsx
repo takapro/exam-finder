@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-const App = () => {
+const App = (): JSX.Element => {
   const [courseInput, setCourseInput] = useState('');
   const [courses, errors1] = parseCourses(courseInput);
   const [exams, errors2] = filterExams(window.schedule.exams, courses);

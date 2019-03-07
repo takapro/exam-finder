@@ -74,7 +74,7 @@ export const createVerticalCalendar = <T extends {}>(calendar: Calendar<T>[], st
     const item = row.items.find(item => time >= item.start && time < item.end);
     return item && item.value;
   }))) as (T | undefined)[][]; // TypeScript's type inference seems to be broken here...
-  const countSpan = (array: (T | undefined)[], index: number) => {
+  const countSpan = (array: (T | undefined)[], index: number): number => {
     let i = index;
     while (i < array.length && array[i] === array[index]) { i++; }
     return i - index;

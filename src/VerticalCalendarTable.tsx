@@ -7,7 +7,7 @@ import { Exam } from './Schedule';
 const startHour = 8;
 const endHour = 22;
 
-const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }) => {
+const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
   return (
     <thead>
       <tr>
@@ -22,7 +22,7 @@ const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }) => {
   );
 };
 
-const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }) => {
+const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }): JSX.Element => {
   return (
     <tbody>
       {props.calendar.map(each =>
@@ -43,7 +43,7 @@ const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }
   );
 };
 
-const VerticalCalendarTable = (props: { exams: Exam[] }) => {
+const VerticalCalendarTable = (props: { exams: Exam[] }): JSX.Element => {
   const items: CalendarItem<Exam>[] = props.exams.map(exam => ({
     start: parseDate(exam.date + ' ' + exam.start_time, 'EEE, MMM d, yyyy H:mm', new Date()),
     end: parseDate(exam.date + ' ' + exam.end_time, 'EEE, MMM d, yyyy H:mm', new Date()),

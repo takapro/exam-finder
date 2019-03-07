@@ -7,9 +7,9 @@ import { Exam } from './Schedule';
 
 const startHour = 8;
 const endHour = 22;
-const hours = Array(endHour - startHour).fill(0).map((_, index) => startHour + index)
+const hours = Array(endHour - startHour).fill(0).map((_, index) => startHour + index);
 
-const HorizontalCalendarTableHead = () => {
+const HorizontalCalendarTableHead = (): JSX.Element => {
   return (
     <thead>
       <tr>
@@ -20,7 +20,7 @@ const HorizontalCalendarTableHead = () => {
   );
 };
 
-const horizontalCalendarTableCell = (date: Date, items: CalendarItem<Exam>[]) => {
+const horizontalCalendarTableCell = (date: Date, items: CalendarItem<Exam>[]): JSX.Element[] => {
   const start = parseDate('' + startHour, 'H', date);
   const end = parseDate('' + endHour, 'H', date);
   return horizontalCalendarItems(items, start, end).map((item, index) =>
@@ -30,7 +30,7 @@ const horizontalCalendarTableCell = (date: Date, items: CalendarItem<Exam>[]) =>
   );
 };
 
-const HorizontalCalendarTableBody = (props: { calendar: Calendar<Exam>[] }) => {
+const HorizontalCalendarTableBody = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
   return (
     <tbody>
       {props.calendar.flatMap(each =>
@@ -45,7 +45,7 @@ const HorizontalCalendarTableBody = (props: { calendar: Calendar<Exam>[] }) => {
   );
 };
 
-const HorizontalCalendarTable = (props: { exams: Exam[] }) => {
+const HorizontalCalendarTable = (props: { exams: Exam[] }): JSX.Element => {
   const items: CalendarItem<Exam>[] = props.exams.map(exam => ({
     start: parseDate(exam.date + ' ' + exam.start_time, 'EEE, MMM d, yyyy H:mm', new Date()),
     end: parseDate(exam.date + ' ' + exam.end_time, 'EEE, MMM d, yyyy H:mm', new Date()),

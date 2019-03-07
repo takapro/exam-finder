@@ -10,7 +10,7 @@ const scheduleTableSchema = [
   { name: 'ROOM', key: 'room' }
 ];
 
-const ShceduleTableHead = () => {
+const ShceduleTableHead = (): JSX.Element => {
   return (
     <thead>
       <tr>
@@ -21,7 +21,8 @@ const ShceduleTableHead = () => {
   );
 };
 
-const shceduleTableCell = (exam: any, key: string, key2: string | undefined) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const shceduleTableCell = (exam: any, key: string, key2: string | undefined): JSX.Element => {
   const del = exam['del_' + key];
   if (key2) {
     const del2 = exam['del_' + key2];
@@ -29,9 +30,9 @@ const shceduleTableCell = (exam: any, key: string, key2: string | undefined) => 
   } else {
     return <td key={key}>{del && <><del>{del}</del><br /></>}{exam[key]}</td>;
   }
-}
+};
 
-const ShceduleTableBody = (props: { courseExams: CourseExam[] }) => {
+const ShceduleTableBody = (props: { courseExams: CourseExam[] }): JSX.Element => {
   return (
     <tbody>
       {props.courseExams.flatMap(courseExam =>
@@ -46,7 +47,7 @@ const ShceduleTableBody = (props: { courseExams: CourseExam[] }) => {
   );
 };
 
-const ShceduleTable = (props: { exams: Exam[] }) => {
+const ShceduleTable = (props: { exams: Exam[] }): JSX.Element => {
   const courseExams = makeCourseExams(props.exams);
   return (
     <table id='schedule'>

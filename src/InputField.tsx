@@ -8,7 +8,7 @@ interface InputFieldProps {
   onChange: (value: string) => void;
 }
 
-const InputErrors = (props: { errors: Error[] }) => {
+const InputErrors = (props: { errors: Error[] }): JSX.Element | null => {
   if (props.errors.length === 0) {
     return null;
   }
@@ -22,7 +22,7 @@ const InputErrors = (props: { errors: Error[] }) => {
   );
 };
 
-const InputField = (props: InputFieldProps) => {
+const InputField = (props: InputFieldProps): JSX.Element => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     props.onChange(event.target.value);
   };
