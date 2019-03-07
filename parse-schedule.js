@@ -23,7 +23,7 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
 
   const $ = cheerio.load(data);
   const article = $('article.content_section').first();
-  const name = $('h3', article).first().text();
+  const title = $('h3', article).first().text();
   const asof = $('p', article).first().text();
 
   const rows = $('table', article).first().find('tr');
@@ -50,7 +50,7 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
     exams.push(exam);
   }
 
-  const json = JSON.stringify({ name, asof, exams });
+  const json = JSON.stringify({ title, asof, exams });
   if (outputFilename === '-') {
     process.stdout.write(json);
   } else {

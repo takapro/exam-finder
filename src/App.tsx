@@ -21,7 +21,7 @@ const App = (): JSX.Element => {
     errors1.concat(errors2) : [makeInfo('Enter your courses separeted by space or comma.')];
   return <>
     <h1>Exam Schedule Finder</h1>
-    <h3>{window.schedule.name}</h3>
+    <h3>{window.schedule.title}</h3>
     <p>{window.schedule.asof}</p>
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
     {exams.length > 0 && <ScheduleTable exams={exams} />}

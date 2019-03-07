@@ -1,5 +1,5 @@
 var schedule = {
-  "name": "Winter 2019 - FINAL Exam Schedule",
+  "title": "Winter 2019 - FINAL Exam Schedule",
   "asof": "as of Thursday, February 28, 2019",
   "exams": [
     {

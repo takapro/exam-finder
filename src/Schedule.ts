@@ -2,7 +2,7 @@ import { Course, courseToString } from './Course';
 import { Error, makeError } from './Error';
 
 export interface Schedule {
-  name: string;
+  title: string;
   asof: string;
   exams: Exam[];
 }
