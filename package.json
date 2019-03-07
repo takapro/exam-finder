@@ -8,6 +8,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server --watch-content-base --content-base public",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest"
   },
   "dependencies": {
@@ -19,6 +20,9 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "eslint": "^5.15.1",
+    "eslint-plugin-react": "^7.12.4",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
