@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { parseCourses } from './Course';
+import { parseCourseCodes } from './CourseCode';
 import { Schedule, filterExams } from './Schedule';
 import { makeInfo } from './Error';
 import InputField from './InputField';
@@ -15,8 +15,8 @@ declare global {
 
 const App = (): JSX.Element => {
   const [courseInput, setCourseInput] = useState('');
-  const [courses, errors1] = parseCourses(courseInput);
-  const [exams, errors2] = filterExams(window.schedule.exams, courses);
+  const [codes, errors1] = parseCourseCodes(courseInput);
+  const [exams, errors2] = filterExams(window.schedule.exams, codes);
   const errors = (errors1.length > 0 || errors2.length > 0) ?
     errors1.concat(errors2) : [makeInfo('Enter your courses separeted by space or comma.')];
   return <>

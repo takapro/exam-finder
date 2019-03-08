@@ -1,4 +1,4 @@
-import { Course, courseToString } from './Course';
+import { CourseCode, courseCodeToString } from './CourseCode';
 import { Error, makeError } from './Error';
 
 export interface Schedule {
@@ -37,23 +37,23 @@ export const makeCourseExams = (exams: Exam[]): CourseExam[] => {
   return result;
 };
 
-export const filterExams = (exams: Exam[], courses: Course[]): [Exam[], Error[]] => {
-  if (courses.length === 0) {
+export const filterExams = (exams: Exam[], codes: CourseCode[]): [Exam[], Error[]] => {
+  if (codes.length === 0) {
     return [[], []];
   }
-  const match = (exam: Exam, course: Course): boolean => {
-    return exam.course.substr(4) === course.number &&
-      (course.subject === null || exam.course.substr(0, course.subject.length) === course.subject) &&
-      (course.section === null || exam.section === course.section);
+  const match = (exam: Exam, code: CourseCode): boolean => {
+    return exam.course.substr(4) === code.number &&
+      (code.subject === null || exam.course.substr(0, code.subject.length) === code.subject) &&
+      (code.section === null || exam.section === code.section);
   };
   const errors: Error[] = [];
-  courses.forEach(course => {
-    let count = exams.filter(exam => match(exam, course)).length;
+  codes.forEach(code => {
+    let count = exams.filter(exam => match(exam, code)).length;
     if (count === 0) {
-      errors.push(makeError(true, 'Course not found: ' + courseToString(course)));
+      errors.push(makeError(true, 'Course not found: ' + courseCodeToString(code)));
     } else if (count > 1) {
-      errors.push(makeError(false, 'Course is ambiguous: ' + courseToString(course)));
+      errors.push(makeError(false, 'Course is ambiguous: ' + courseCodeToString(code)));
     }
   });
-  return [exams.filter(exam => courses.some(course => match(exam, course))), errors];
+  return [exams.filter(exam => codes.some(code => match(exam, code))), errors];
 };

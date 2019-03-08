@@ -1,20 +1,20 @@
 import { Error, makeError } from './Error';
 
-export interface Course {
+export interface CourseCode {
   subject: string | null;
   number: string;
   section: string | null;
 }
 
-export const courseToString = (course: Course): string => {
-  const { subject, number, section } = course;
+export const courseCodeToString = (code: CourseCode): string => {
+  const { subject, number, section } = code;
   return (subject !== null ? subject : '') + number + (section !== null ? '-' + section : '');
 };
 
-export const parseCourses = (input: string): [Course[], Error[]] => {
-  const result: Course[] = [];
+export const parseCourseCodes = (input: string): [CourseCode[], Error[]] => {
+  const result: CourseCode[] = [];
   let subject: string | null = null;
-  let current: Course | null = null;
+  let current: CourseCode | null = null;
   const split = input.match(/([A-Za-z]+|[0-9]+)/g);
   if (split !== null) {
     for (let i = 0; i < split.length; i++) {
@@ -35,13 +35,13 @@ export const parseCourses = (input: string): [Course[], Error[]] => {
         current.section = ('00' + each).slice(-3);
         current = null;
       } else if (each.length <= 7) {
-        const course = {
+        const code = {
           subject: subject,
           number: each.substr(0, 4),
           section: each.length === 4 ? null : ('00' + each.substr(4)).slice(-3)
         };
-        result.push(course);
-        current = each.length === 4 ? course : null;
+        result.push(code);
+        current = each.length === 4 ? code : null;
         subject = null;
       } else {
         return [result, [makeError(true, 'Number too long: ' + each)]];
