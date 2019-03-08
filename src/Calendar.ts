@@ -28,7 +28,7 @@ export interface VerticalCalendar<T> {
   }[];
 }
 
-export const createCalendar = <T extends {}>(items: CalendarItem<T>[]): Calendar<T>[] => {
+export const createCalendar = <T>(items: CalendarItem<T>[]): Calendar<T>[] => {
   const calendar: Calendar<T>[] = [];
   let current: Calendar<T> | null = null;
   mergeSort(items, (a, b) => compareAsc(a.start, b.start)).forEach(item => {
@@ -51,7 +51,7 @@ export const createCalendar = <T extends {}>(items: CalendarItem<T>[]): Calendar
   return calendar;
 };
 
-export const horizontalCalendarItems = <T extends {}>(items: CalendarItem<T>[], start: Date, end: Date): CalendarItem<T>[] => {
+export const horizontalCalendarItems = <T>(items: CalendarItem<T>[], start: Date, end: Date): CalendarItem<T>[] => {
   const result: CalendarItem<T>[] = [];
   let prevEnd = start;
   items.forEach(item => {
@@ -67,7 +67,7 @@ export const horizontalCalendarItems = <T extends {}>(items: CalendarItem<T>[], 
   return result;
 };
 
-export const createVerticalCalendar = <T extends {}>(calendar: Calendar<T>[], start: number, end: number, step: number): VerticalCalendar<T>[] => {
+export const createVerticalCalendar = <T>(calendar: Calendar<T>[], start: number, end: number, step: number): VerticalCalendar<T>[] => {
   const hours = Array.from(Array((end - start) / step), (_, index) => start + step * index);
   const data = calendar.flatMap(each => each.rows.map(row => hours.map(hour => {
     const time = parseDate(`${Math.floor(hour)}:${(hour - Math.floor(hour)) * 60}`, 'H:m', each.date);

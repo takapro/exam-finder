@@ -1,4 +1,4 @@
-export const mergeSort = <T extends {}>(array: T[], compare: (a: T, b: T) => number): T[] => {
+export const mergeSort = <T>(array: T[], compare: (a: T, b: T) => number): T[] => {
   if (array.length < 2) {
     return array;
   }
