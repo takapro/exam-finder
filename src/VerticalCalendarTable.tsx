@@ -11,11 +11,12 @@ const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }): JSX.E
   return (
     <thead>
       <tr>
+        <td className='dummy'></td>
         <th></th>
         {props.calendar.map(each =>
-          <td key={formatDate(each.date, 'yyyy-MM-dd')} className='date' colSpan={each.rows.length}>
+          <th key={formatDate(each.date, 'yyyy-MM-dd')} className='date' colSpan={each.rows.length}>
             {formatDate(each.date, 'EEE, MMM dd')}
-          </td>
+          </th>
         )}
       </tr>
     </thead>
@@ -27,7 +28,8 @@ const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }
     <tbody>
       {props.calendar.map(each =>
         <tr key={'hour-' + each.hour}>
-          {each.hour === Math.floor(each.hour) && <th className='hour' rowSpan={2}>{each.hour}</th>}
+          <td className='dummy'></td>
+          {each.hour === Math.floor(each.hour) && <td className='hour' rowSpan={2}>{each.hour}</td>}
           {each.values.map((item, index) =>
             <td key={'column-' + index} className={item.value ? 'cell' : 'gap'} rowSpan={item.span}>
               {item.value && <>
@@ -54,6 +56,7 @@ const VerticalCalendarTable = (props: { exams: Exam[] }): JSX.Element => {
   return (
     <table id='verticalCalendar'>
       <colgroup>
+        <col className='dummy' />
         <col className='hour' />
         {calendar.flatMap(each => each.rows.map((_, index) =>
           <col key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index} className={index === 0 ? 'first' : 'not_first'}/>

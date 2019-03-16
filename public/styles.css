@@ -106,13 +106,25 @@ table#verticalCalendar tr {
 }
 
 table#verticalCalendar th, table#verticalCalendar td {
-  padding: 0.5em;
   text-align: center;
   vertical-align: middle;
 }
 
-table#verticalCalendar th.hour, table#verticalCalendar td.date, table#verticalCalendar td.cell {
+table#verticalCalendar th.date, table#verticalCalendar td.hour, table#verticalCalendar td.cell {
   border: 1px solid gray;
+  padding: 0.5em;
+}
+
+table#verticalCalendar td.dummy {
+  padding: 0;
+}
+
+table#verticalCalendar td.hour {
+  border-left: none;
+}
+
+table#verticalCalendar td.cell {
+  line-height: 1.5em;
 }
 
 table#verticalCalendar td.gap {
