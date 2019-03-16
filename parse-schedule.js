@@ -37,6 +37,10 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
       rowspan = parseInt($(cols[0]).attr('rowspan')) || 1;
       cols.shift();
     }
+    if ($(cols[0]).has('del').length) {
+      console.error('deleted section:', course + '-' + $(cols[0]).text());
+      continue;
+    }
     const exam = {
       course,
       ...getCell('section', $(cols[0])),
