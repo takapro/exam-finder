@@ -1,7 +1,6 @@
 import React from 'react';
 import formatDate from 'date-fns/format';
-import parseDate from 'date-fns/parse';
-import { Calendar, CalendarItem, VerticalCalendar, createCalendar, createVerticalCalendar } from './Calendar';
+import { Calendar, VerticalCalendar, createVerticalCalendar } from './Calendar';
 import { Exam } from './Schedule';
 
 const startHour = 8;
@@ -45,24 +44,18 @@ const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }
   );
 };
 
-const VerticalCalendarTable = (props: { exams: Exam[] }): JSX.Element => {
-  const items: CalendarItem<Exam>[] = props.exams.map(exam => ({
-    start: parseDate(exam.date + ' ' + exam.start_time, 'EEE, MMM d, yyyy H:mm', new Date()),
-    end: parseDate(exam.date + ' ' + exam.end_time, 'EEE, MMM d, yyyy H:mm', new Date()),
-    value: exam
-  }));
-  const calendar = createCalendar(items);
-  const verticalCalendar = createVerticalCalendar(calendar, startHour, endHour, 0.5);
+const VerticalCalendarTable = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
+  const verticalCalendar = createVerticalCalendar(props.calendar, startHour, endHour, 0.5);
   return (
     <table id='verticalCalendar'>
       <colgroup>
         <col className='dummy' />
         <col className='hour' />
-        {calendar.flatMap(each => each.rows.map((_, index) =>
+        {props.calendar.flatMap(each => each.rows.map((_, index) =>
           <col key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index} className={index === 0 ? 'first' : 'not_first'}/>
         ))}
       </colgroup>
-      <VerticalCalendarTableHead calendar={calendar} />
+      <VerticalCalendarTableHead calendar={props.calendar} />
       <VerticalCalendarTableBody calendar={verticalCalendar} />
     </table>
   );

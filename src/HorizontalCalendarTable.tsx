@@ -2,7 +2,7 @@ import React from 'react';
 import formatDate from 'date-fns/format';
 import parseDate from 'date-fns/parse';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
-import { Calendar, CalendarItem, createCalendar, horizontalCalendarItems } from './Calendar';
+import { Calendar, CalendarItem, horizontalCalendarItems } from './Calendar';
 import { Exam } from './Schedule';
 
 const startHour = 8;
@@ -45,12 +45,7 @@ const HorizontalCalendarTableBody = (props: { calendar: Calendar<Exam>[] }): JSX
   );
 };
 
-const HorizontalCalendarTable = (props: { exams: Exam[] }): JSX.Element => {
-  const items: CalendarItem<Exam>[] = props.exams.map(exam => ({
-    start: parseDate(exam.date + ' ' + exam.start_time, 'EEE, MMM d, yyyy H:mm', new Date()),
-    end: parseDate(exam.date + ' ' + exam.end_time, 'EEE, MMM d, yyyy H:mm', new Date()),
-    value: exam
-  }));
+const HorizontalCalendarTable = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
   return (
     <table id='horizontalCalendar'>
       <colgroup>
@@ -60,7 +55,7 @@ const HorizontalCalendarTable = (props: { exams: Exam[] }): JSX.Element => {
         ))}
       </colgroup>
       <HorizontalCalendarTableHead />
-      <HorizontalCalendarTableBody calendar={createCalendar(items)} />
+      <HorizontalCalendarTableBody calendar={props.calendar} />
     </table>
   );
 };
