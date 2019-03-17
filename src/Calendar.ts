@@ -1,5 +1,6 @@
 import compareAsc from 'date-fns/compareAsc';
 import differenceInDays from 'date-fns/differenceInDays';
+import addDays from 'date-fns/addDays';
 import startOfDay from 'date-fns/startOfDay';
 import parseDate from 'date-fns/parse';
 import { mergeSort } from './Utils';
@@ -33,6 +34,11 @@ export const createCalendar = <T>(items: CalendarItem<T>[]): Calendar<T>[] => {
   let current: Calendar<T> | null = null;
   mergeSort(items, (a, b) => compareAsc(a.start, b.start)).forEach(item => {
     if (current === null || differenceInDays(item.start, current.date) >= 1) {
+      while (current !== null && differenceInDays(item.start, current.date) >= 2) {
+        const date = addDays(current.date, 1);
+        current = { date: date, rows: [{ end: date, items: [] }] };
+        calendar.push(current);
+      }
       current = {
         date: startOfDay(item.start),
         rows: [{ end: item.end, items: [item] }]
@@ -61,7 +67,7 @@ export const horizontalCalendarItems = <T>(items: CalendarItem<T>[], start: Date
     result.push(item);
     prevEnd = item.end;
   });
-  if (end > prevEnd) {
+  if (end > prevEnd || result.length === 0) {
     result.push({ start: prevEnd, end: end });
   }
   return result;
