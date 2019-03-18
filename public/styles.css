@@ -52,43 +52,6 @@ table#schedule td del {
   color: gray;
 }
 
-/* Horizontal Calendar */
-
-table#horizontalCalendar {
-  border: 1px solid gray;
-  border-collapse: collapse;
-  margin: 1.5em 0px;
-}
-
-table#horizontalCalendar col.cell {
-  width: 1.5em;
-}
-
-table#horizontalCalendar tr.first {
-  border-top: 1px solid gray;
-}
-
-table#horizontalCalendar tr.not_first {
-  border-top: 1px dashed gray;
-}
-
-table#horizontalCalendar th, table#horizontalCalendar td {
-  padding: 0.5em;
-  vertical-align: top;
-}
-
-table#horizontalCalendar th, table#horizontalCalendar td.date, table#horizontalCalendar td.cell {
-  border: 1px solid gray;
-}
-
-table#horizontalCalendar td.date {
-  white-space: nowrap;
-}
-
-table#horizontalCalendar td.gap {
-  background-color: whitesmoke;
-}
-
 /* Vertical Calendar */
 
 table#verticalCalendar {

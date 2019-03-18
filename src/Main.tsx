@@ -6,7 +6,6 @@ import { createCalendar } from './Calendar';
 import { makeInfo } from './Error';
 import InputField from './InputField';
 import ScheduleTable from './ScheduleTable';
-import HorizontalCalendarTable from './HorizontalCalendarTable';
 import VerticalCalendarTable from './VerticalCalendarTable';
 
 const createTables = (exams: Exam[]): JSX.Element => {
@@ -17,7 +16,6 @@ const createTables = (exams: Exam[]): JSX.Element => {
   })));
   return <>
     <ScheduleTable exams={exams} />
-    <HorizontalCalendarTable calendar={calendar} />
     <VerticalCalendarTable calendar={calendar} />
   </>;
 };

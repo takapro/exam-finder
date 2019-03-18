@@ -1,6 +1,5 @@
 import parseISO from 'date-fns/parseISO';
-import parseDate from 'date-fns/parse';
-import { CalendarItem, createCalendar, horizontalCalendarItems, createVerticalCalendar } from './Calendar';
+import { CalendarItem, createCalendar, createVerticalCalendar } from './Calendar';
 
 const data: CalendarItem<string>[] = [
   { start: parseISO('2019-04-10T08:30'), end: parseISO('2019-04-10T11:30'), value: 'A' },
@@ -37,31 +36,6 @@ test('createCalendar', () => {
   expect(calendar[5].rows.length).toBe(1);
   expect(calendar[5].rows[0].items.length).toBe(1);
   expect(calendar[5].rows[0].items[0].value).toBe('D');
-});
-
-test('horizontalCalendarItems', () => {
-  const calendar = createCalendar(data);
-  const start = parseDate('8', 'H', calendar[0].date);
-  const end = parseDate('22', 'H', calendar[0].date);
-  expect(start).toEqual(parseISO('2019-04-10T08:00'));
-  expect(end).toEqual(parseISO('2019-04-10T22:00'));
-  const gappedCalendar = horizontalCalendarItems(calendar[0].rows[0].items, start, end);
-  expect(gappedCalendar.length).toBe(5);
-  expect(gappedCalendar[0].start).toEqual(parseISO('2019-04-10T08:00'));
-  expect(gappedCalendar[0].end).toEqual(parseISO('2019-04-10T08:30'));
-  expect(gappedCalendar[0].value).toBe(undefined);
-  expect(gappedCalendar[1].start).toEqual(parseISO('2019-04-10T08:30'));
-  expect(gappedCalendar[1].end).toEqual(parseISO('2019-04-10T11:30'));
-  expect(gappedCalendar[1].value).toBe('A');
-  expect(gappedCalendar[2].start).toEqual(parseISO('2019-04-10T11:30'));
-  expect(gappedCalendar[2].end).toEqual(parseISO('2019-04-10T15:30'));
-  expect(gappedCalendar[2].value).toBe(undefined);
-  expect(gappedCalendar[3].start).toEqual(parseISO('2019-04-10T15:30'));
-  expect(gappedCalendar[3].end).toEqual(parseISO('2019-04-10T18:30'));
-  expect(gappedCalendar[3].value).toBe('C');
-  expect(gappedCalendar[4].start).toEqual(parseISO('2019-04-10T18:30'));
-  expect(gappedCalendar[4].end).toEqual(parseISO('2019-04-10T22:00'));
-  expect(gappedCalendar[4].value).toBe(undefined);
 });
 
 test('createVerticalCalendar', () => {

@@ -57,22 +57,6 @@ export const createCalendar = <T>(items: CalendarItem<T>[]): Calendar<T>[] => {
   return calendar;
 };
 
-export const horizontalCalendarItems = <T>(items: CalendarItem<T>[], start: Date, end: Date): CalendarItem<T>[] => {
-  const result: CalendarItem<T>[] = [];
-  let prevEnd = start;
-  items.forEach(item => {
-    if (item.start > prevEnd) {
-      result.push({ start: prevEnd, end: item.start });
-    }
-    result.push(item);
-    prevEnd = item.end;
-  });
-  if (end > prevEnd || result.length === 0) {
-    result.push({ start: prevEnd, end: end });
-  }
-  return result;
-};
-
 export const createVerticalCalendar = <T>(calendar: Calendar<T>[], start: number, end: number, step: number): VerticalCalendar<T>[] => {
   const hours = Array.from(Array((end - start) / step), (_, index) => start + step * index);
   const data = calendar.flatMap(each => each.rows.map(row => hours.map(hour => {
