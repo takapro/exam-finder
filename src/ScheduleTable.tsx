@@ -15,6 +15,7 @@ const scheduleTableHead = (): JSX.Element => {
     <thead>
       <tr>
         {scheduleTableSchema.map(each => <th key={each.key} colSpan={each.span}>{each.name}</th>)}
+        <td className='margin'></td>
       </tr>
     </thead>
   );

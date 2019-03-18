@@ -6,6 +6,22 @@ import { Exam } from './Schedule';
 const startHour = 8;
 const endHour = 22;
 
+const calendarTableCols = (calendar: Calendar<Exam>[]): JSX.Element => {
+  return(
+    <colgroup>
+      <col className='dummy' />
+      <col className='hour' />
+      {calendar.flatMap(each => {
+        const date = formatDate(each.date, 'yyyy-MM-dd');
+        return each.rows.map((_, index) =>
+          <col key={date + '-' + index} className={index < each.rows.length - 1 ? 'not_last' : 'last'} />
+        );
+      })}
+      <col className='margin' />
+    </colgroup>
+  );
+};
+
 const calendarTableHead = (calendar: Calendar<Exam>[]): JSX.Element => {
   return (
     <thead>
@@ -17,6 +33,7 @@ const calendarTableHead = (calendar: Calendar<Exam>[]): JSX.Element => {
             {formatDate(each.date, 'EEE, MMM dd')}
           </th>
         )}
+        <td className='margin'></td>
       </tr>
     </thead>
   );
@@ -48,13 +65,7 @@ const CalendarTable = (props: { hidden: boolean, calendar: Calendar<Exam>[] }): 
   const verticalCalendar = createVerticalCalendar(props.calendar, startHour, endHour, 0.5);
   return (
     <table id='calendar' className={props.hidden ? 'hidden' : ''}>
-      <colgroup>
-        <col className='dummy' />
-        <col className='hour' />
-        {props.calendar.flatMap(each => each.rows.map((_, index) =>
-          <col key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index} className={index === 0 ? 'first' : 'not_first'}/>
-        ))}
-      </colgroup>
+      {calendarTableCols(props.calendar)}
       {calendarTableHead(props.calendar)}
       {calendarTableBody(verticalCalendar)}
     </table>
