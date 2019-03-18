@@ -2,44 +2,52 @@ import React from 'react';
 import { Exam, CourseExam, makeCourseExams } from './Schedule';
 
 const scheduleTableSchema = [
-  { name: 'SECTION', key: 'section' },
-  { name: 'INSTRUCTOR', key: 'instructor' },
-  { name: 'DATE', key: 'date' },
-  { name: 'TIME', key: 'start_time', key2: 'end_time' },
-  { name: 'BLDG', key: 'building' },
-  { name: 'ROOM', key: 'room' }
+  { name: 'Course', key: 'section', span: 2 },
+  { name: 'Instructor', key: 'instructor' },
+  { name: 'Date', key: 'date' },
+  { name: 'Time', key: 'start_time', key2: 'end_time' },
+  { name: 'Bldg', key: 'building' },
+  { name: 'Room', key: 'room' }
 ];
 
-const ShceduleTableHead = (): JSX.Element => {
+const scheduleTableHead = (): JSX.Element => {
   return (
     <thead>
       <tr>
-        <th>COURSE</th>
-        {scheduleTableSchema.map(each => <th key={each.key}>{each.name}</th>)}
+        {scheduleTableSchema.map(each => <th key={each.key} colSpan={each.span}>{each.name}</th>)}
       </tr>
     </thead>
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const shceduleTableCell = (exam: any, key: string, key2: string | undefined): JSX.Element => {
-  const del = exam['del_' + key];
-  if (key2) {
+const scheduleTableCell = (exam: any, key: string, key2: string | undefined): JSX.Element => {
+  let val = exam[key];
+  let del = exam['del_' + key];
+  if (key === 'date') {
+    val = val.replace(/, \d+$/, '');
+    if (del) {
+      del = del.replace(/, \d+$/, '');
+    }
+  } else if (key2) {
+    const val2 = exam[key2];
     const del2 = exam['del_' + key2];
-    return <td key={key}>{del && del2 && <><del>{del} - {del2}</del><br /></>}{exam[key]} - {exam[key2]}</td>;
-  } else {
-    return <td key={key}>{del && <><del>{del}</del><br /></>}{exam[key]}</td>;
+    val += ' - ' + val2;
+    if (del || del2) {
+      del = (del || val) + ' - ' + (del2 || val2);
+    }
   }
+  return <td key={key} className={key}>{del && <><del>{del}</del><br /></>}{val}</td>;
 };
 
-const ShceduleTableBody = (props: { courseExams: CourseExam[] }): JSX.Element => {
+const scheduleTableBody = (courseExams: CourseExam[]): JSX.Element => {
   return (
     <tbody>
-      {props.courseExams.flatMap(courseExam =>
+      {courseExams.flatMap(courseExam =>
         courseExam.exams.map((exam, index) =>
           <tr key={exam.course + '-' + exam.section}>
             {index === 0 && <td rowSpan={courseExam.exams.length}>{exam.course}</td>}
-            {scheduleTableSchema.map(each => shceduleTableCell(exam, each.key, each.key2))}
+            {scheduleTableSchema.map(each => scheduleTableCell(exam, each.key, each.key2))}
           </tr>
         )
       )}
@@ -47,14 +55,14 @@ const ShceduleTableBody = (props: { courseExams: CourseExam[] }): JSX.Element =>
   );
 };
 
-const ShceduleTable = (props: { exams: Exam[] }): JSX.Element => {
+const ScheduleTable = (props: { exams: Exam[] }): JSX.Element => {
   const courseExams = makeCourseExams(props.exams);
   return (
     <table id='schedule'>
-      <ShceduleTableHead />
-      <ShceduleTableBody courseExams={courseExams} />
+      {scheduleTableHead()}
+      {scheduleTableBody(courseExams)}
     </table>
   );
 };
 
-export default ShceduleTable;
+export default ScheduleTable;
