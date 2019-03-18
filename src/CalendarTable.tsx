@@ -6,13 +6,13 @@ import { Exam } from './Schedule';
 const startHour = 8;
 const endHour = 22;
 
-const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
+const calendarTableHead = (calendar: Calendar<Exam>[]): JSX.Element => {
   return (
     <thead>
       <tr>
         <td className='dummy'></td>
         <th></th>
-        {props.calendar.map(each =>
+        {calendar.map(each =>
           <th key={formatDate(each.date, 'yyyy-MM-dd')} className='date' colSpan={each.rows.length}>
             {formatDate(each.date, 'EEE, MMM dd')}
           </th>
@@ -22,10 +22,10 @@ const VerticalCalendarTableHead = (props: { calendar: Calendar<Exam>[] }): JSX.E
   );
 };
 
-const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }): JSX.Element => {
+const calendarTableBody = (calendar: VerticalCalendar<Exam>[]): JSX.Element => {
   return (
     <tbody>
-      {props.calendar.map(each =>
+      {calendar.map(each =>
         <tr key={'hour-' + each.hour}>
           <td className='dummy'></td>
           {each.hour === Math.floor(each.hour) && <td className='hour' rowSpan={2}>{each.hour}</td>}
@@ -44,10 +44,10 @@ const VerticalCalendarTableBody = (props: { calendar: VerticalCalendar<Exam>[] }
   );
 };
 
-const VerticalCalendarTable = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
+const CalendarTable = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
   const verticalCalendar = createVerticalCalendar(props.calendar, startHour, endHour, 0.5);
   return (
-    <table id='verticalCalendar'>
+    <table id='calendar'>
       <colgroup>
         <col className='dummy' />
         <col className='hour' />
@@ -55,10 +55,10 @@ const VerticalCalendarTable = (props: { calendar: Calendar<Exam>[] }): JSX.Eleme
           <col key={formatDate(each.date, 'yyyy-MM-dd') + '-' + index} className={index === 0 ? 'first' : 'not_first'}/>
         ))}
       </colgroup>
-      <VerticalCalendarTableHead calendar={props.calendar} />
-      <VerticalCalendarTableBody calendar={verticalCalendar} />
+      {calendarTableHead(props.calendar)}
+      {calendarTableBody(verticalCalendar)}
     </table>
   );
 };
 
-export default VerticalCalendarTable;
+export default CalendarTable;

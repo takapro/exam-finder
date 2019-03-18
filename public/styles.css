@@ -52,48 +52,48 @@ table#schedule td del {
   color: gray;
 }
 
-/* Vertical Calendar */
+/* Calendar */
 
-table#verticalCalendar {
+table#calendar {
   border: 1px solid gray;
   border-collapse: collapse;
   margin: 1.5em 0px;
 }
 
-table#verticalCalendar col.first {
+table#calendar col.first {
   border-left: 1px solid gray;
 }
 
-table#verticalCalendar col.not_first {
+table#calendar col.not_first {
   border-left: 1px dashed gray;
 }
 
-table#verticalCalendar tr {
+table#calendar tr {
   height: 1em;
 }
 
-table#verticalCalendar th, table#verticalCalendar td {
+table#calendar th, table#calendar td {
   text-align: center;
   vertical-align: middle;
 }
 
-table#verticalCalendar th.date, table#verticalCalendar td.hour, table#verticalCalendar td.cell {
+table#calendar th.date, table#calendar td.hour, table#calendar td.cell {
   border: 1px solid gray;
   padding: 0.5em;
 }
 
-table#verticalCalendar td.dummy {
+table#calendar td.dummy {
   padding: 0;
 }
 
-table#verticalCalendar td.hour {
+table#calendar td.hour {
   border-left: none;
 }
 
-table#verticalCalendar td.cell {
+table#calendar td.cell {
   line-height: 1.5em;
 }
 
-table#verticalCalendar td.gap {
+table#calendar td.gap {
   background-color: whitesmoke;
 }
