@@ -44,10 +44,10 @@ const calendarTableBody = (calendar: VerticalCalendar<Exam>[]): JSX.Element => {
   );
 };
 
-const CalendarTable = (props: { calendar: Calendar<Exam>[] }): JSX.Element => {
+const CalendarTable = (props: { hidden: boolean, calendar: Calendar<Exam>[] }): JSX.Element => {
   const verticalCalendar = createVerticalCalendar(props.calendar, startHour, endHour, 0.5);
   return (
-    <table id='calendar'>
+    <table id='calendar' className={props.hidden ? 'hidden' : ''}>
       <colgroup>
         <col className='dummy' />
         <col className='hour' />

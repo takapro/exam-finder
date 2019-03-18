@@ -33,7 +33,7 @@ div.inputField span.info {
 /* Segmented Control */
 
 div.segmentedControl {
-  display: flex;
+  display: none;
   margin: 1em 0px;
 }
 
@@ -124,4 +124,16 @@ table#calendar td.cell {
 
 table#calendar td.gap {
   background-color: whitesmoke;
+}
+
+/* Mobile Device Support */
+
+@media screen and (max-width: 499px) {
+  div.segmentedControl {
+    display: flex;
+  }
+
+  table#schedule.hidden, table#calendar.hidden {
+    display: none;
+  }
 }

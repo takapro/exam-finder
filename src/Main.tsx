@@ -14,15 +14,16 @@ const segments = [
   { title: 'Calendar', value: 'calendar' }
 ];
 
-const createTables = (exams: Exam[]): JSX.Element => {
+const createTables = (exams: Exam[], segment: string, setSegment: (value: string) => void): JSX.Element => {
   const calendar = createCalendar(exams.map(exam => ({
     start: parseDate(exam.date + ' ' + exam.start_time, 'EEE, MMM d, yyyy H:mm', new Date()),
     end: parseDate(exam.date + ' ' + exam.end_time, 'EEE, MMM d, yyyy H:mm', new Date()),
     value: exam
   })));
   return <>
-    <ScheduleTable exams={exams} />
-    <CalendarTable calendar={calendar} />
+    <SegmentedControl segments={segments} value={segment} onChange={setSegment} />
+    <ScheduleTable hidden={segment !== 'schedule'} exams={exams} />
+    <CalendarTable hidden={segment !== 'calendar'} calendar={calendar} />
   </>;
 };
 
@@ -37,8 +38,7 @@ const Main = (props: { schedule: Schedule }): JSX.Element => {
     <h3>{props.schedule.title}</h3>
     <p>{props.schedule.asof}</p>
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
-    <SegmentedControl segments={segments} value={segment} onChange={setSegment} />
-    {exams.length > 0 && createTables(exams)}
+    {exams.length > 0 && createTables(exams, segment, setSegment)}
   </>;
 };
 
