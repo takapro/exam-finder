@@ -5,8 +5,14 @@ import { Exam, Schedule, filterExams } from './Schedule';
 import { createCalendar } from './Calendar';
 import { makeInfo } from './Error';
 import InputField from './InputField';
+import SegmentedControl from './SegmentedControl';
 import ScheduleTable from './ScheduleTable';
 import CalendarTable from './CalendarTable';
+
+const segments = [
+  { title: 'Schedule', value: 'schedule' },
+  { title: 'Calendar', value: 'calendar' }
+];
 
 const createTables = (exams: Exam[]): JSX.Element => {
   const calendar = createCalendar(exams.map(exam => ({
@@ -22,6 +28,7 @@ const createTables = (exams: Exam[]): JSX.Element => {
 
 const Main = (props: { schedule: Schedule }): JSX.Element => {
   const [courseInput, setCourseInput] = useState('');
+  const [segment, setSegment] = useState('schedule');
   const [codes, errors1] = parseCourseCodes(courseInput);
   const [exams, errors2] = filterExams(props.schedule.exams, codes);
   const errors = (errors1.length > 0 || errors2.length > 0) ?
@@ -30,6 +37,7 @@ const Main = (props: { schedule: Schedule }): JSX.Element => {
     <h3>{props.schedule.title}</h3>
     <p>{props.schedule.asof}</p>
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
+    <SegmentedControl segments={segments} value={segment} onChange={setSegment} />
     {exams.length > 0 && createTables(exams)}
   </>;
 };
