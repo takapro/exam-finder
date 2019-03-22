@@ -128,6 +128,10 @@ table#calendar td.cell {
   white-space: nowrap;
 }
 
+table#calendar td del {
+  color: gray;
+}
+
 table#calendar td.gap {
   background-color: whitesmoke;
   border-bottom: 1px solid gray;

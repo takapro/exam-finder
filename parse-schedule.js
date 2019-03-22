@@ -37,12 +37,14 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
       rowspan = parseInt($(cols[0]).attr('rowspan')) || 1;
       cols.shift();
     }
+    let deleted = {};
     if ($(cols[0]).has('del').length) {
       console.error('deleted section:', course + '-' + $(cols[0]).text());
-      continue;
+      deleted = { deleted: true };
     }
     const exam = {
       course,
+      ...deleted,
       ...getCell('section', $(cols[0])),
       ...getCell('instructor', $(cols[1])),
       ...getCell('date', $(cols[2])),

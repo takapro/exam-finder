@@ -7,7 +7,7 @@ const startHour = 8;
 const endHour = 22;
 
 const calendarTableCols = (calendar: Calendar<Exam>[]): JSX.Element => {
-  return(
+  return (
     <colgroup>
       <col className='dummy' />
       <col className='hour' />
@@ -39,6 +39,14 @@ const calendarTableHead = (calendar: Calendar<Exam>[]): JSX.Element => {
   );
 };
 
+const calendarTableCell = (exam: Exam): JSX.Element => {
+  return <>
+    <strong>{exam.course + '-' + exam.section}</strong><br />
+    {exam.start_time + ' - ' + exam.end_time}<br />
+    {exam.building + ' ' + exam.room}
+  </>;
+};
+
 const calendarTableBody = (calendar: VerticalCalendar<Exam>[]): JSX.Element => {
   return (
     <tbody>
@@ -48,11 +56,8 @@ const calendarTableBody = (calendar: VerticalCalendar<Exam>[]): JSX.Element => {
           {each.hour === Math.floor(each.hour) && <td className='hour' rowSpan={2}>{each.hour}</td>}
           {each.values.map((item, index) =>
             <td key={'column-' + index} className={item.value ? 'cell' : 'gap'} rowSpan={item.span}>
-              {item.value && <>
-                <strong>{item.value.course + '-' + item.value.section}</strong><br />
-                {item.value.start_time + ' - ' + item.value.end_time}<br />
-                {item.value.building + ' ' + item.value.room}
-              </>}
+              {item.value && (item.value.deleted ?
+                <del>{calendarTableCell(item.value)}</del> : calendarTableCell(item.value))}
             </td>
           )}
         </tr>

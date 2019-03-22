@@ -10,6 +10,7 @@ export interface Schedule {
 export interface Exam {
   course: string;
   section: string;
+  deleted: boolean;
   instructor: string;
   date: string;
   start_time: string;
