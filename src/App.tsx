@@ -17,6 +17,20 @@ const fetchUrl = (url: string, setState: (state: State) => void): void => {
     .catch(() => setState('failed'));
 };
 
+const Disclaimer = (): JSX.Element => {
+  const officialUrl = 'https://www.douglascollege.ca/study-at-douglas/exam-schedule';
+  const githubUrl = 'https://github.com/takapro/exam-finder';
+  return (
+    <div className='disclaimer'>
+      <h3>Disclaimer</h3>
+      <p>This web page is provided &quot;AS IS&quot;, without any kind of warranty.</p>
+      <p>The information in this web page is NOT provided by the college, and may be incorrect or outdated.</p>
+      <p>Please check the official information at <a href={officialUrl}>{officialUrl}</a>.</p>
+      <p>You can find the source code at <a href={githubUrl}>{githubUrl}</a>.</p>
+    </div>
+  );
+};
+
 const App = (props: { baseUrl: string }): JSX.Element => {
   const [state, setState] = useState('loading' as State);
   useEffect(() => fetchUrl(props.baseUrl + '/schedule.json', setState), []);
@@ -26,6 +40,7 @@ const App = (props: { baseUrl: string }): JSX.Element => {
       state === 'failed' ? <p>Sorry, failed to load data.</p> :
         <Main schedule={state} />
     }
+    <Disclaimer />
   </>;
 };
 

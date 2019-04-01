@@ -6,6 +6,19 @@
   margin: 1em;
 }
 
+.disclaimer {
+  font-size: small;
+  margin-top: 2em;
+}
+
+.disclaimer h3 {
+  margin: 0.5em 0;
+}
+
+.disclaimer p {
+  margin: 0.25em 0;
+}
+
 /* Input Field */
 
 div.inputField input {
