@@ -70,11 +70,13 @@ function getCell(key, col) {
   if (p.length === 0) {
     return { [key]: conv(col.text()) };
   }
-  const text = p.last().text();
+  const text = p.not(':has(del)').last().text();
   const del = p.find('del');
   if (del.length === 0) {
-    return { [key]: conv(text)
-    };
+    return { [key]: conv(text) };
+  }
+  if (text === del.last().text()) {
+    console.error('same text as deleted:', text);
   }
   return {
     [key]: conv(text),
