@@ -11,7 +11,15 @@
   },
   "rules": {
     "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/explicit-function-return-type": ["warn",
+      { "allowExpressions": true }
+    ],
+    "@typescript-eslint/member-delimiter-style": ["warn",
+      {
+        "multiline":  { "delimiter": "semi",  "requireLast": true },
+        "singleline": { "delimiter": "comma", "requireLast": false }
+      }
+    ],
     "@typescript-eslint/no-non-null-assertion": "off",
     "semi": "error",
     "eqeqeq": "error",
