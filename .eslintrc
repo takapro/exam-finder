@@ -20,7 +20,6 @@
         "singleline": { "delimiter": "comma", "requireLast": false }
       }
     ],
-    "@typescript-eslint/no-non-null-assertion": "off",
     "semi": "error",
     "eqeqeq": "error",
     "no-console": "warn"

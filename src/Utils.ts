@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-non-null-assertion */
+
 export const mergeSort = <T>(array: T[], compare: (a: T, b: T) => number): T[] => {
   if (array.length < 2) {
     return array;
