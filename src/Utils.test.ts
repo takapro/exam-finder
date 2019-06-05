@@ -1,3 +1,4 @@
+import test from 'tape';
 import { mergeSort } from './Utils';
 
 const array: { key: number, value: string }[] = [
@@ -29,7 +30,8 @@ const array: { key: number, value: string }[] = [
   { key: 8, value: 'x' },
 ];
 
-test('mergeSort', () => {
+test('mergeSort', t => {
   const sorted = mergeSort(array, (a, b) => a.key - b.key);
-  expect(sorted.map(each => each.value).join('')).toBe('abcdefghijklmnopqrstuvwxyz');
+  t.equal(sorted.map(each => each.value).join(''), 'abcdefghijklmnopqrstuvwxyz');
+  t.end();
 });
