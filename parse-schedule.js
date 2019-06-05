@@ -88,6 +88,9 @@ function getDate(text) {
   let date = parseDate(text, 'EEE, MMM d, yyyy', new Date());
   if (!isValid(date)) {
     date = parseDate(text, 'EEE, MMM, d, yyyy', new Date());
+    if (!isValid(date) && text.startsWith('Thurs, ')) {
+      date = parseDate(text.replace(/^Thurs, /, 'Thu, '), 'EEE, MMM, d, yyyy', new Date());
+    }
   }
   if (!isValid(date)) {
     console.error('failed to parse date:', text);
