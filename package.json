@@ -14,7 +14,7 @@
   "dependencies": {
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
-    "date-fns": "^2.0.0-alpha.29",
+    "date-fns": "^2.0.0-alpha.31",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
