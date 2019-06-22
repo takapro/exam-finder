@@ -75,6 +75,10 @@ function getCell(key, col) {
   if (del.length === 0) {
     return { [key]: conv(text) };
   }
+  if (text === '') {
+    console.error('new text is empty');
+    return { [key]: conv(del.last().text()) };
+  }
   if (text === del.last().text()) {
     console.error('same text as deleted:', text);
   }

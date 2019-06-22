@@ -30,7 +30,7 @@ const InputField = (props: InputFieldProps): JSX.Element => {
     <div className='inputField'>
       <label>
         {props.label}<br />
-        <input type='text' value={props.value} onChange={onChange} />
+        <input autoFocus type='text' value={props.value} onChange={onChange} />
       </label>
       <InputErrors errors={props.errors} />
     </div>
