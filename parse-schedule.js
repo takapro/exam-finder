@@ -65,7 +65,7 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
 });
 
 function getCell(key, col) {
-  const conv = text => key === 'date' ? getDate(text) : text;
+  const conv = key === 'date' ? getDate : text => text.trim();
   const p = col.find('p');
   if (p.length === 0) {
     return { [key]: conv(col.text()) };
@@ -92,6 +92,9 @@ function getDate(text) {
   let date = parseDate(text, 'EEE, MMM d, yyyy', new Date());
   if (!isValid(date)) {
     date = parseDate(text, 'EEE, MMM, d, yyyy', new Date());
+  }
+  if (!isValid(date)) {
+    date = parseDate(text.replace(/^Tues,/, 'Tue,').replace(/\u00a0/, ''), 'EEE, MMM, d, yyyy', new Date());
   }
   if (!isValid(date)) {
     console.error('failed to parse date:', text);
