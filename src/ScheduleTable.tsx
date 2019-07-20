@@ -25,10 +25,7 @@ const scheduleTableHead = (): JSX.Element => {
 const scheduleTableCell = (exam: any, key: string, key2: string | undefined): JSX.Element => {
   let val = exam[key];
   let del = exam['del_' + key];
-  if (exam.deleted) {
-    del = val;
-    val = undefined;
-  } else if (key === 'date') {
+  if (key === 'date') {
     val = val.replace(/, \d+$/, '');
     if (del) {
       del = del.replace(/, \d+$/, '');
@@ -40,6 +37,10 @@ const scheduleTableCell = (exam: any, key: string, key2: string | undefined): JS
     if (del || del2) {
       del = (del || val) + ' - ' + (del2 || val2);
     }
+  }
+  if (exam.deleted) {
+    del = val;
+    val = undefined;
   }
   return (
     <td key={key} className={key}>
