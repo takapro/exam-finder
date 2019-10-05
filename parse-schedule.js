@@ -26,7 +26,10 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
   const title = $('h3', article).first().text();
   const asof = $('p', article).first().text();
 
-  const rows = $('table', article).first().find('tr');
+  let rows = $('table', article).first().find('tr');
+  if (rows.length === 0) {
+    rows = $($('table', article)[1]).find('tr');
+  }
   const exams = [];
   let course;
   let rowspan = 0;

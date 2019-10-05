@@ -49,7 +49,7 @@ export const filterExams = (exams: Exam[], codes: CourseCode[]): [Exam[], Error[
   };
   const errors: Error[] = [];
   codes.forEach(code => {
-    let count = exams.filter(exam => match(exam, code)).length;
+    const count = exams.filter(exam => match(exam, code)).length;
     if (count === 0) {
       errors.push(makeError(true, 'Course not found: ' + courseCodeToString(code)));
     } else if (count > 1) {
