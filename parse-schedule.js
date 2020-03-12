@@ -71,7 +71,14 @@ function getCell(key, col) {
   const conv = key === 'date' ? getDate : text => text.trim();
   const p = col.find('p');
   if (p.length === 0) {
-    return { [key]: conv(col.text()) };
+    const del = col.find('span[style="text-decoration: line-through;"]');
+    if (del.length === 0) {
+      return { [key]: conv(col.text()) };
+    }
+    return {
+      [key]: conv(col.contents().last().text().trim()),
+      ['del_' + key]: conv(del.last().text())
+    };
   }
   const text = p.not(':has(del)').last().text();
   const del = p.find('del');
