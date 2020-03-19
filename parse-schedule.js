@@ -26,6 +26,12 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
   const title = $('h3', article).first().text();
   const asof = $('p', article).first().text();
 
+  const notices = [];
+  let p = $('p', article).first();
+  while ((p = p.next('p')).length && p.has('a').length === 0) {
+    notices.push(p.text());
+  }
+
   let rows = $('table', article).first().find('tr');
   if (rows.length === 0) {
     rows = $($('table', article)[1]).find('tr');
@@ -59,7 +65,7 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
     exams.push(exam);
   }
 
-  const json = JSON.stringify({ title, asof, exams });
+  const json = JSON.stringify({ title, asof, notices, exams });
   if (outputFilename === '-') {
     process.stdout.write(json);
   } else {

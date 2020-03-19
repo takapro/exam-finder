@@ -37,6 +37,7 @@ const Main = (props: { schedule: Schedule }): JSX.Element => {
   return <>
     <h3>{props.schedule.title}</h3>
     <p>{props.schedule.asof}</p>
+    {props.schedule.notices?.map((each, index) => <p key={index}>{each}</p>)}
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
     {exams.length > 0 && createTables(exams, segment, setSegment)}
   </>;

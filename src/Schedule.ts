@@ -4,6 +4,7 @@ import { Error, makeError } from './Error';
 export interface Schedule {
   title: string;
   asof: string;
+  notices?: string[];
   exams: Exam[];
 }
 
