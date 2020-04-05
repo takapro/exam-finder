@@ -27,17 +27,17 @@ const createTables = (exams: Exam[], segment: string, setSegment: (value: string
   </>;
 };
 
-const Main = (props: { schedule: Schedule }): JSX.Element => {
+const Main: React.FC<{ schedule: Schedule }> = ({ schedule }) => {
   const [courseInput, setCourseInput] = useState('');
   const [segment, setSegment] = useState('schedule');
   const [codes, errors1] = parseCourseCodes(courseInput);
-  const [exams, errors2] = filterExams(props.schedule.exams, codes);
+  const [exams, errors2] = filterExams(schedule.exams, codes);
   const errors = (errors1.length > 0 || errors2.length > 0) ?
     errors1.concat(errors2) : [makeInfo('Enter your courses separeted by space or comma.')];
   return <>
-    <h3>{props.schedule.title}</h3>
-    <p>{props.schedule.asof}</p>
-    {props.schedule.notices?.map((each, index) => <p key={index}>{each}</p>)}
+    <h3>{schedule.title}</h3>
+    <p>{schedule.asof}</p>
+    {schedule.notices?.map((each, index) => <p key={index}>{each}</p>)}
     <InputField label='Courses' value={courseInput} errors={errors} onChange={setCourseInput} />
     {exams.length > 0 && createTables(exams, segment, setSegment)}
   </>;

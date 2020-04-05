@@ -66,10 +66,10 @@ const scheduleTableBody = (courseExams: CourseExam[]): JSX.Element => {
   );
 };
 
-const ScheduleTable = (props: { hidden: boolean, exams: Exam[] }): JSX.Element => {
-  const courseExams = makeCourseExams(props.exams);
+const ScheduleTable: React.FC<{ hidden: boolean, exams: Exam[] }> = ({ hidden, exams }) => {
+  const courseExams = makeCourseExams(exams);
   return (
-    <table id='schedule' className={props.hidden ? 'hidden' : ''}>
+    <table id='schedule' className={hidden ? 'hidden' : ''}>
       {scheduleTableHead()}
       {scheduleTableBody(courseExams)}
     </table>

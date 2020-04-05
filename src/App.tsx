@@ -17,7 +17,7 @@ const fetchUrl = (url: string, setState: (state: State) => void): void => {
     .catch(() => setState('failed'));
 };
 
-const Disclaimer = (): JSX.Element => {
+const Disclaimer: React.FC = () => {
   const officialUrl = 'https://www.douglascollege.ca/study-at-douglas/exam-schedule';
   const githubUrl = 'https://github.com/takapro/exam-finder';
   return (
@@ -31,9 +31,9 @@ const Disclaimer = (): JSX.Element => {
   );
 };
 
-const App = (props: { baseUrl: string }): JSX.Element => {
+const App: React.FC<{ baseUrl: string }> = ({ baseUrl }) => {
   const [state, setState] = useState('loading' as State);
-  useEffect(() => fetchUrl(props.baseUrl + '/schedule.json', setState), []);
+  useEffect(() => fetchUrl(baseUrl + '/schedule.json', setState), []);
   return <>
     <h1>Exam Schedule Finder</h1>
     {state === 'loading' ? <p>Loading...</p> :

@@ -66,12 +66,12 @@ const calendarTableBody = (calendar: VerticalCalendar<Exam>[]): JSX.Element => {
   );
 };
 
-const CalendarTable = (props: { hidden: boolean, calendar: Calendar<Exam>[] }): JSX.Element => {
-  const verticalCalendar = createVerticalCalendar(props.calendar, startHour, endHour, 0.5);
+const CalendarTable: React.FC<{ hidden: boolean, calendar: Calendar<Exam>[] }> = ({ hidden, calendar }) => {
+  const verticalCalendar = createVerticalCalendar(calendar, startHour, endHour, 0.5);
   return (
-    <table id='calendar' className={props.hidden ? 'hidden' : ''}>
-      {calendarTableCols(props.calendar)}
-      {calendarTableHead(props.calendar)}
+    <table id='calendar' className={hidden ? 'hidden' : ''}>
+      {calendarTableCols(calendar)}
+      {calendarTableHead(calendar)}
       {calendarTableBody(verticalCalendar)}
     </table>
   );

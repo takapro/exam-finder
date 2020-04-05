@@ -17,10 +17,10 @@ const segmentElement = (segment: Segment, value: string, onChange: (value: strin
   return <div key={segment.value} className={className} onClick={onClick}>{segment.title}</div>;
 };
 
-const SegmentedControl = (props: SegmentedControlProps): JSX.Element => {
+const SegmentedControl: React.FC<SegmentedControlProps> = ({ segments, value, onChange }) => {
   return (
     <div className='segmentedControl'>
-      {props.segments.map(segment => segmentElement(segment, props.value, props.onChange))}
+      {segments.map(segment => segmentElement(segment, value, onChange))}
     </div>
   );
 };
