@@ -4,17 +4,14 @@ import Main from './Main';
 
 type State = 'loading' | 'failed' | Schedule;
 
-const fetchUrl = (url: string, setState: (state: State) => void): void => {
-  fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw Error();
-      }
-    })
-    .then(json => setState(json))
-    .catch(() => setState('failed'));
+const fetchUrl = async (url: string, setState: (state: State) => void): Promise<void> => {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    setState(data);
+  } catch (err) {
+    setState('failed');
+  }
 };
 
 const Disclaimer: React.FC = () => {
@@ -33,7 +30,7 @@ const Disclaimer: React.FC = () => {
 
 const App: React.FC<{ baseUrl: string }> = ({ baseUrl }) => {
   const [state, setState] = useState('loading' as State);
-  useEffect(() => fetchUrl(baseUrl + '/schedule.json', setState), []);
+  useEffect(() => { fetchUrl(baseUrl + '/schedule.json', setState); }, []);
   return <>
     <h1>Exam Schedule Finder</h1>
     {state === 'loading' ? <p>Loading...</p> :

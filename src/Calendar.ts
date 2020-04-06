@@ -3,6 +3,8 @@ import differenceInDays from 'date-fns/differenceInDays';
 import addDays from 'date-fns/addDays';
 import startOfDay from 'date-fns/startOfDay';
 import parseDate from 'date-fns/parse';
+import isEqual from 'date-fns/isEqual';
+import subHours from 'date-fns/subHours';
 import { mergeSort } from './Utils';
 
 export interface Calendar<T> {
@@ -29,9 +31,12 @@ export interface VerticalCalendar<T> {
   }[];
 }
 
-export const createCalendar = <T>(items: CalendarItem<T>[]): Calendar<T>[] => {
+export const createCalendar = <T>(items: CalendarItem<T>[], adjustTime = false): Calendar<T>[] => {
   const calendar: Calendar<T>[] = [];
   let current: Calendar<T> | null = null;
+  if (adjustTime) {
+    items = items.map(item => isEqual(item.start, item.end) ? { ...item, start: subHours(item.start, 2) } : item);
+  }
   mergeSort(items, (a, b) => compareAsc(a.start, b.start)).forEach(item => {
     if (current === null || differenceInDays(item.start, current.date) >= 1) {
       while (current !== null && differenceInDays(item.start, current.date) >= 2) {
@@ -63,7 +68,7 @@ export const createVerticalCalendar = <T>(calendar: Calendar<T>[], start: number
     const time = parseDate(`${Math.floor(hour)}:${(hour - Math.floor(hour)) * 60}`, 'H:m', each.date);
     const item = row.items.find(item => time >= item.start && time < item.end);
     return item && item.value;
-  }))) as (T | undefined)[][]; // TypeScript's type inference seems to be broken here...
+  })));
   const countSpan = (array: (T | undefined)[], index: number): number => {
     let i = index;
     while (i < array.length && array[i] === array[index]) { i++; }

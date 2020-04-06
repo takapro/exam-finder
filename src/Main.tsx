@@ -19,7 +19,7 @@ const createTables = (exams: Exam[], segment: string, setSegment: (value: string
     start: parseDate(exam.date + ' ' + exam.start_time, 'EEE, MMM d, yyyy H:mm', new Date()),
     end: parseDate(exam.date + ' ' + exam.end_time, 'EEE, MMM d, yyyy H:mm', new Date()),
     value: exam
-  })));
+  })), true);
   return <>
     <SegmentedControl segments={segments} value={segment} onChange={setSegment} />
     <ScheduleTable hidden={segment !== 'schedule'} exams={exams} />

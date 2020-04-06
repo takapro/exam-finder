@@ -42,7 +42,7 @@ const calendarTableHead = (calendar: Calendar<Exam>[]): JSX.Element => {
 const calendarTableCell = (exam: Exam): JSX.Element => {
   return <>
     <strong>{exam.course + '-' + exam.section}</strong><br />
-    {exam.start_time + ' - ' + exam.end_time}<br />
+    {exam.start_time === exam.end_time ? exam.start_time : exam.start_time + ' - ' + exam.end_time}<br />
     {exam.building + ' ' + exam.room}
   </>;
 };
