@@ -110,6 +110,9 @@ function getDate(text) {
     date = parseDate(text, 'EEE, MMM, d, yyyy', new Date());
   }
   if (!isValid(date)) {
+    date = parseDate(text, 'EEE,\u00a0 MMM d, yyyy', new Date());
+  }
+  if (!isValid(date)) {
     date = parseDate(text.replace(/^Tues,/, 'Tue,').replace(/\u00a0/, ''), 'EEE, MMM, d, yyyy', new Date());
   }
   if (!isValid(date)) {
