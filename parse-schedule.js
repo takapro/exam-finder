@@ -43,6 +43,12 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
     const cols = $('td', rows[i]).toArray();
     if (rowspan < 1) {
       course = getCell('course', $(cols[0])).course;
+      if (course.length === 9 && course.charAt(4) === ' ') {
+        course = course.replace(' ', '');
+      }
+      if (!course.match(/^[A-Z]{4}[0-9]{4}$/)) {
+        console.error('bad course:', course);
+      }
       rowspan = parseInt($(cols[0]).attr('rowspan')) || 1;
       cols.shift();
     }
