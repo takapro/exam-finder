@@ -15,7 +15,7 @@ const fetchUrl = async (url: string, setState: (state: State) => void): Promise<
 };
 
 const Disclaimer: React.FC = () => {
-  const officialUrl = 'https://www.douglascollege.ca/study-at-douglas/exam-schedule';
+  const officialUrl = 'https://www.douglascollege.ca/current-students/important-dates-information/exam-schedule';
   const githubUrl = 'https://github.com/takapro/exam-finder';
   return (
     <div className='disclaimer'>

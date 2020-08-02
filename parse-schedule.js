@@ -22,7 +22,7 @@ fs.readFile(inputFilename, 'utf8', (err, data) => {
   if (err) throw err;
 
   const $ = cheerio.load(data);
-  const article = $('article.content_section').first();
+  const article = $('article').first();
   const title = $('h3', article).first().text();
   const asof = $('p', article).first().text();
 
